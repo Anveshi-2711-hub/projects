@@ -1,51 +1,46 @@
-# Mood Tracker
+# Customer Feedback System
 
-A Python-based mood tracking system that uses facial emotion recognition to track your mood throughout the day. The system categorizes your mood into three categories: happy, neutral, and sad.
+A RESTful API for managing customer feedback built with Node.js, Express, and SQLite.
 
-## Features
+## Prerequisites
 
-- Real-time facial emotion detection using your webcam
-- Automatic mood logging with timestamps
-- Mood history saved to CSV file
-- Mood distribution visualization
-- Simple and intuitive interface
+- Node.js (v14 or higher)
+- npm (comes with Node.js)
 
-## Requirements
+## Setup
 
-- Python 3.7 or higher
-- Webcam
-- Required Python packages (listed in requirements.txt)
-
-## Installation
-
-1. Clone this repository or download the files
-2. Install the required packages:
+1. Install dependencies:
 ```bash
-pip install -r requirements.txt
+npm install
 ```
 
-## Usage
-
-1. Run the mood tracker:
+2. Start the server:
 ```bash
-python mood_tracker.py
+npm start
 ```
 
-2. The program will open your webcam and start detecting your mood
-3. Your current mood will be displayed on the screen
-4. Press 'q' to quit the program
-5. When you quit, the program will:
-   - Save your mood history to 'mood_history.csv'
-   - Generate a mood distribution plot as 'mood_distribution.png'
+The server will start on http://localhost:3000
 
-## Output Files
+## API Endpoints
 
-- `mood_history.csv`: Contains timestamped records of your detected moods
-- `mood_distribution.png`: A bar chart showing the distribution of your moods
+### Submit Feedback
+- **POST** `/api/feedback`
+- Body: 
+  ```json
+  {
+    "customer_name": "string (max 100 chars)",
+    "feedback_text": "string (max 1000 chars)",
+    "rating": "integer (1-5)"
+  }
+  ```
 
-## Note
+### Get All Feedback (Admin Only)
+- **GET** `/api/feedback`
+- Headers: `Authorization: Bearer supersecretkey123`
 
-The system uses the FER (Facial Emotion Recognition) library which is built on top of OpenCV. It maps the detected emotions to three mood categories:
-- Happy: happy, surprise
-- Neutral: neutral
-- Sad: sad, angry, disgust, fear 
+### Get Feedback by ID
+- **GET** `/api/feedback/:id`
+
+### Delete Feedback (Admin Only)
+- **DELETE** `/api/feedback/:id`
+- Headers: `Authorization: Bearer supersecretkey123` 
